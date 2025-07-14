@@ -14,8 +14,10 @@ def get_all_packages(status: Optional[str] = None, sort_by: Optional[str] = None
         packages = [pkg for pkg in packages if pkg.status.lower() == status.lower()]
 
     # Sort by 'eta' or 'last_updated' if sort query parameter is provided
-    if sort_by in {"eta", "last_updated"}:
-        packages.sort(key=lambda x: getattr(x, sort_by))
+    if sort_by == "eta":
+        packages.sort(key=lambda x: x.eta)  # Earliest ETA first
+    elif sort_by == "last_updated":
+        packages.sort(key=lambda x: x.last_updated, reverse=True)  # Most recent update first
 
     return packages
 
