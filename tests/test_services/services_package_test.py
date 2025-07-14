@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import patch, MagicMock
 from app.services.package_service import get_all_packages, get_package_by_tracking_id
-from app.models.package import Package
+from app.models.package import Package, PackageStatus
 from app.services.carrier_service import get_all_carriers
 from app.models.carrier import Carrier
 from app.services.http_client import MockApiClient
@@ -95,7 +95,7 @@ def test_get_all_packages_success(mock_client):
 def test_get_all_packages_filter_by_status(mock_client):
     mock_client.get.return_value = mock_packages
 
-    packages = get_all_packages(status="Delivered")
+    packages = get_all_packages(status=PackageStatus.DELIVERED)
 
     assert len(packages) == 1
     assert packages[0].status == "Delivered"

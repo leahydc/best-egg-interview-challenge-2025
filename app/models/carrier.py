@@ -1,6 +1,17 @@
 from pydantic import BaseModel, Field
 
-# Pydantic Carrier model for data validation
+
 class Carrier(BaseModel):
-    id: str = Field(..., description="Unique identifier for the carrier")
-    name: str = Field(..., description="Name of the carrier")
+    """
+    Pydantic model representing a shipping carrier.
+    """
+    id: str = Field(
+        ...,
+        description="Unique identifier for the carrier.",
+        example="UPS"
+    )
+    name: str = Field(
+        ...,
+        description="Full name of the carrier.",
+        example="United Parcel Service"
+    )

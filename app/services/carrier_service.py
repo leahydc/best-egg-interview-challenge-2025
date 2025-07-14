@@ -4,8 +4,21 @@ from app.services.http_client import MockApiClient
 
 client = MockApiClient()
 
-# Function to provide a list of all carriers from the mock API
+
 def get_all_carriers() -> List[Carrier]:
-    carriers_data = client.get("/carriers")
-    carrier_list = carriers_data.get("carriers", [])  # Extract the actual list
-    return [Carrier(id=item["id"], name=item["name"]) for item in carrier_list]
+    """
+    Fetch a list of all carriers from the mock API.
+
+    Returns:
+        List[Carrier]: A list of Carrier objects parsed from the API response.
+
+    Raises:
+        ValueError: If the API response is malformed or missing expected data.
+    """
+    response = client.get("/carriers")
+    carriers = response.get("carriers")
+
+    if carriers is None:
+        raise ValueError("Missing 'carriers' field in response from mock API")
+
+    return [Carrier(id=item["id"], name=item["name"]) for item in carriers]
