@@ -8,7 +8,10 @@ from fastapi import HTTPException
 router = APIRouter()
 
 # GET router to get list of all carriers from mock API
-@router.get("/carriers", response_model=List[Carrier])
+@router.get("/carriers",
+            response_model=List[Carrier],
+            description="Get a list of all carriers.",
+            tags=["Carriers"])
 def list_carriers():
     try:
         return get_all_carriers()

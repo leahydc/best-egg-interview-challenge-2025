@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from datetime import datetime
 from enum import Enum
 
@@ -15,9 +15,9 @@ class PackageStatus(str, Enum):
 
 # Pydantic Package model for data validation
 class Package(BaseModel):
-    tracking_id: str
-    carrier: str
-    status: str
-    eta: datetime
-    last_updated: datetime
-    current_city: str
+    tracking_id: str = Field(..., description="Unique identifier for the package")
+    carrier: str = Field(..., description="Name of the carrier handling the package")
+    status: str = Field(..., description="Current status of the package", example="In Transit")
+    eta: datetime = Field(..., description="Estimated time of arrival for the package")
+    last_updated: datetime = Field(..., description="Last updated timestamp for the package status")
+    current_city: str = Field(..., description="Current city where the package is located")
