@@ -1,11 +1,11 @@
 from typing import List, Optional
-from app.models.package import Package
+from app.models.package import Package, PackageStatus, SortBy
 from app.services.http_client import MockApiClient
 
 client = MockApiClient()
 
 # Function to provide a list of all packages from the mock API && filter/sort them based on query params
-def get_all_packages(status: Optional[str] = None, sort_by: Optional[str] = None) -> List[Package]:
+def get_all_packages(status: Optional[PackageStatus] = None, sort_by: Optional[SortBy] = None) -> List[Package]:
     data = client.get("/tracking")
     packages = [Package(**item) for item in data.get("packages", [])]
 
